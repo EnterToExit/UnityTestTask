@@ -17,13 +17,25 @@ public class GalleryLoader : MonoBehaviour
 
     IEnumerator LoadSceneAsync(int sceneIndex)
     {
+        var timer = 2f;
         _loadingScreen.SetActive(true);
+        while (timer > 0f)
+        {
+            var progress = (2f - timer) / 20f * 9f;
+            var progressValue = progress * 100f;
+            _progressSlider.value = progress;
+            _progressValueText.text = Mathf.RoundToInt(progressValue) + "%";
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
         var operation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!operation.isDone)
         {
-            var progress = Mathf.Clamp01(operation.progress / 0.9f);
+            var progress = 0.9f + Mathf.Clamp01(operation.progress / 0.9f) / 10f;
+            var progressValue = progress * 100f;
             _progressSlider.value = progress;
-            _progressValueText.text = progress * 100f + "%";
+            _progressValueText.text = Mathf.RoundToInt(progressValue) + "%";
             yield return null;
         }
     }
