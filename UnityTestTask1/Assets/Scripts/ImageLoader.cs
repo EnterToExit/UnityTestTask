@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ImageLoader : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class ImageLoader : MonoBehaviour
         {
             var imagePrefab = Instantiate(_imagePrefab, _scrollViewContent);
             imagePrefab.name = _picNum.ToString();
-            imagePrefab.SetActive(false);
+            imagePrefab.GetComponent<Image>().color = Color.clear;
         }
     }
 }

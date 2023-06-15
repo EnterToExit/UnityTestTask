@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8922220286558666051}
   - component: {fileID: 8922220286558666050}
   - component: {fileID: 2336020900172758193}
+  - component: {fileID: 1121483314772579053}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -89,3 +90,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de2435f98cd8841a7f3947aa714f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1121483314772579053
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922220286558666052}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
