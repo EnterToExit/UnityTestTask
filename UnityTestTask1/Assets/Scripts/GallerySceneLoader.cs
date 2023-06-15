@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GalleryLoader : MonoBehaviour
+public class GallerySceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject _loadingScreen;
     [SerializeField] private Slider _progressSlider;
@@ -17,6 +17,7 @@ public class GalleryLoader : MonoBehaviour
 
     IEnumerator LoadSceneAsync(int sceneIndex)
     {
+        //Fake load <90%
         var timer = 2f;
         _loadingScreen.SetActive(true);
         while (timer > 0f)
@@ -29,6 +30,7 @@ public class GalleryLoader : MonoBehaviour
             yield return null;
         }
 
+        //Normal load >90%
         var operation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!operation.isDone)
         {
