@@ -8,13 +8,14 @@ public class ImageSpriteController : MonoBehaviour
 {
     private Camera _camera;
     private RectTransform _rectTransform;
+    private Canvas _overlayCanvas;
     private bool _active;
 
     private void Start()
     {
         _camera = Camera.main;
         _rectTransform = GetComponent<RectTransform>();
-        // StartCoroutine(LoadImageTexture(GenerateLink()));
+        _overlayCanvas = FindObjectOfType<Canvas>();
     }
 
     private void Update()
@@ -29,23 +30,27 @@ public class ImageSpriteController : MonoBehaviour
         var corners = new Vector3[4];
         _rectTransform.GetWorldCorners(corners);
 
-        var minScreenPoint = RectTransformUtility.WorldToScreenPoint(_camera, corners[0]);
-        var maxScreenPoint = RectTransformUtility.WorldToScreenPoint(_camera, corners[2]);
+        // Convert the corners to viewport coordinates
+        var minViewportPoint = _camera.WorldToViewportPoint(corners[0]);
+        var maxViewportPoint = _camera.WorldToViewportPoint(corners[2]);
 
-        // Check if the RectTransform is fully or partially visible on the screen
-        var rectBounds = new Rect(minScreenPoint, maxScreenPoint - minScreenPoint);
-        var screenBounds = new Rect(0, 0, Screen.width, Screen.height);
-        var isVisible = screenBounds.Overlaps(rectBounds, true);
+        // Check if the RectTransform is visible on the overlay canvas
+        var isVisible = IsRectVisibleOnCanvas(minViewportPoint, maxViewportPoint, _overlayCanvas);
 
         if (isVisible)
         {
-            Debug.Log("RectTransform is visible on the screen.");
             _active = true;
+            StartCoroutine(LoadImageTexture(GenerateLink()));
         }
-        else
-        {
-            Debug.Log("RectTransform is not visible on the screen.");
-        }
+    }
+    
+    private bool IsRectVisibleOnCanvas(Vector3 minViewportPoint, Vector3 maxViewportPoint, Canvas canvas)
+    {
+        var canvasRect = canvas.pixelRect;
+        var rectBounds = new Rect(minViewportPoint, maxViewportPoint - minViewportPoint);
+
+        // Check if the RectTransform bounds intersect with the canvas bounds
+        return canvasRect.Overlaps(rectBounds, true);
     }
 
     private string GenerateLink()
@@ -56,6 +61,12 @@ public class ImageSpriteController : MonoBehaviour
 
     private IEnumerator LoadImageTexture(string link)
     {
+        // var timer = 3f;
+        // while (timer > 0f)
+        // {
+        //     timer -= Time.deltaTime;
+        // }
+
         var request = UnityWebRequestTexture.GetTexture(link);
         yield return request.SendWebRequest();
 
@@ -65,10 +76,12 @@ public class ImageSpriteController : MonoBehaviour
         }
         else
         {
+            // transform.GetComponent<Image>().color = Color.white;
             var serverTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
             transform.GetComponent<Image>().sprite = Sprite.Create(serverTexture,
                 new Rect(0, 0, serverTexture.width, serverTexture.height),
                 new Vector3(.5f, 5f));
+            transform.GetComponent<Image>().color = Color.white;
         }
     }
 }

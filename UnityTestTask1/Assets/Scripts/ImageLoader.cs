@@ -45,7 +45,7 @@ public class ImageLoader : MonoBehaviour
         {
             var imagePrefab = Instantiate(_imagePrefab, _scrollViewContent);
             imagePrefab.name = _picNum.ToString();
-            imagePrefab.GetComponent<Image>().color = Color.clear;
+            imagePrefab.GetComponent<Image>().color = new Color(145, 145, 145, 0.1f);;
         }
     }
 }
