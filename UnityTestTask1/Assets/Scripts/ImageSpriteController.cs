@@ -61,12 +61,6 @@ public class ImageSpriteController : MonoBehaviour
 
     private IEnumerator LoadImageTexture(string link)
     {
-        // var timer = 3f;
-        // while (timer > 0f)
-        // {
-        //     timer -= Time.deltaTime;
-        // }
-
         var request = UnityWebRequestTexture.GetTexture(link);
         yield return request.SendWebRequest();
 
