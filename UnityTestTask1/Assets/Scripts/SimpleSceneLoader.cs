@@ -9,3 +9,19 @@ public class SimpleSceneLoader : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 }
+
+public class NavigationControls : MonoBehaviour
+{
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Escape");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Menu))
+        {
+            Debug.Log("Menu");
+        }
+    }
+}
