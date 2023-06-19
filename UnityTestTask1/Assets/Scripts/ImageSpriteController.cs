@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ImageSpriteController : MonoBehaviour
 {
-    private Camera _camera;
+    private static Camera _camera;
     private RectTransform _rectTransform;
     private Canvas _overlayCanvas;
     private bool _active;
