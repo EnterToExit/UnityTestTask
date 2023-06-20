@@ -245,6 +245,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1736424522, guid: e5b2ff0b6b4171346adffee80a085c5f, type: 3}
+      propertyPath: AllowPortrait
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736424522, guid: e5b2ff0b6b4171346adffee80a085c5f, type: 3}
+      propertyPath: AllowLandscape
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7993202795907130524, guid: e5b2ff0b6b4171346adffee80a085c5f, type: 3}
       propertyPath: m_RootOrder
       value: 2

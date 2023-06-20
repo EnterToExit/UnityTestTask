@@ -3,8 +3,8 @@ using UnityEngine;
 public class OrientationManager : MonoBehaviour
 {
     // Set the desired orientations in the Unity Inspector
-    public bool allowPortrait = true;
-    public bool allowLandscape = true;
+    public bool AllowPortrait = true;
+    public bool AllowLandscape = true;
     
     private void Start()
     {
@@ -14,7 +14,7 @@ public class OrientationManager : MonoBehaviour
 
     private void SetOrientation()
     {
-        if (allowPortrait && allowLandscape)
+        if (AllowPortrait && AllowLandscape)
         {
             // Allow both portrait and landscape modes
             Screen.autorotateToPortrait = true;
@@ -22,7 +22,7 @@ public class OrientationManager : MonoBehaviour
             Screen.autorotateToLandscapeRight = true;
             Screen.orientation = ScreenOrientation.AutoRotation;
         }
-        else if (allowPortrait)
+        else if (AllowPortrait)
         {
             // Allow only portrait mode
             Screen.autorotateToPortrait = true;
@@ -30,7 +30,7 @@ public class OrientationManager : MonoBehaviour
             Screen.autorotateToLandscapeRight = false;
             Screen.orientation = ScreenOrientation.AutoRotation;
         }
-        else if (allowLandscape)
+        else if (AllowLandscape)
         {
             // Allow only landscape mode
             Screen.autorotateToPortrait = false;
