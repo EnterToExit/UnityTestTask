@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class GameObjectController : MonoBehaviour
 {
     [SerializeField] private Transform _object;
+    [SerializeField] private GameObject _particleObject;
     private Camera _camera;
     private MeshRenderer _meshRenderer;
     private Vector3 _objectStartPos;
@@ -28,14 +29,22 @@ public class GameObjectController : MonoBehaviour
 
         if (Physics.Raycast(ray, out _, 100))
         {
+            StartCoroutine(InstantiateExplosion());
             _meshRenderer.material.color = GetRandomColor();
-            _object.DOJump(_objectStartPos, 1f, 1, 0.5f);
+            _object.DOJump(_objectStartPos, 1f, 1, 0.4f);
         }
     }
 
     private void FixedUpdate()
     {
         _object.transform.Rotate(Vector3.up, 1f);
+    }
+
+    private IEnumerator InstantiateExplosion()
+    {
+        var explosion = Instantiate(_particleObject, _objectStartPos, Quaternion.identity);
+        Destroy(explosion, 1f);
+        yield return null;
     }
 
     private static Color GetRandomColor()
