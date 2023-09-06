@@ -21,33 +21,33 @@ public class TimeController : MonoBehaviour
 
     private void X()
     {
+        Debug.Log(_time);
         AlertMoscowTime(_time);
     }
-    
+
 
     private IEnumerator GetTime()
     {
-        var url = "https://time100.ru/api.php";
+        const string url = "https://time100.ru/api.php";
         var request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
-        
-        if (request.result != UnityWebRequest.Result.Success) {
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
             Debug.Log(request.error);
         }
-        else {
+        else
+        {
             _time = ConvertSeconds(int.Parse(request.downloadHandler.text));
+            // _time = request.downloadHandler.text;
         }
     }
 
     private string ConvertSeconds(int secs)
     {
-        TimeSpan t = TimeSpan.FromSeconds( secs );
+        var t = TimeSpan.FromSeconds(secs);
 
-        string answer = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", 
-            t.Hours, 
-            t.Minutes, 
-            t.Seconds, 
-            t.Milliseconds);
+        var answer = $"{t.Hours:D2}h:{t.Minutes:D2}m:{t.Seconds:D2}s:{t.Milliseconds:D3}ms";
         return answer;
     }
 }
