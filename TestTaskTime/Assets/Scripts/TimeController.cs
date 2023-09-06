@@ -16,6 +16,12 @@ public class TimeController : MonoBehaviour
     private void GetMoscowTime()
     {
         StartCoroutine(GetTime());
+        Invoke("X", 1f);
+    }
+
+    private void X()
+    {
+        AlertMoscowTime(_time);
     }
     
 
