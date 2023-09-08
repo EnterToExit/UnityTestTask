@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
 public class TimeController : MonoBehaviour
 {
     [DllImport("__Internal")]
@@ -16,12 +17,12 @@ public class TimeController : MonoBehaviour
     private void GetMoscowTime()
     {
         StartCoroutine(GetTime());
-        Invoke("X", 1f);
+        Invoke("DisplayTime", 1f);
     }
 
-    private void X()
+    private void DisplayTime()
     {
-        Debug.Log(_time);
+        // Debug.Log(_time);
         AlertMoscowTime(_time);
     }
 
@@ -30,6 +31,10 @@ public class TimeController : MonoBehaviour
     {
         const string url = "https://time100.ru/api.php";
         var request = UnityWebRequest.Get(url);
+        // request.SetRequestHeader("Access-Control-Allow-Credentials", "true");
+        // request.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
+        // request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); 
+        // request.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -39,7 +44,6 @@ public class TimeController : MonoBehaviour
         else
         {
             _time = ConvertSeconds(int.Parse(request.downloadHandler.text));
-            // _time = request.downloadHandler.text;
         }
     }
 
